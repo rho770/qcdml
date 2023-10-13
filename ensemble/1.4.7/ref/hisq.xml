@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<markovChain xmlns="http://www.lqcd.org/ildg/QCDml/ensemble1.4"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.lqcd.org/ildg/QCDml/ensemble1.4 QCDmlEnsemble1.4.xsd">
+    <markovChainURI>mc://USQCD/MILC/asqtad/2_plus_1_flavor/1648f21b6572m0097m0484</markovChainURI>
+    <management>
+        <collaboration>MILC</collaboration>
+        <projectName>2+1 Dynamical AsqTAD</projectName>
+        <ensembleLabel>0.15fm</ensembleLabel>
+        <publishedAlias>medium coarse, coarser, beta = 6.572, 0.2ms</publishedAlias>
+        <reference>PoS LAT2006:163 (2006)</reference>
+        <archiveHistory>
+            <elem>
+                <revisionAction>add</revisionAction>
+                <participant>
+                    <name>C. DeTar</name>
+                    <institution>U Utah</institution>
+                </participant>
+                <date>2007-11-30T00:00:00-00:00</date>
+            </elem>
+        </archiveHistory>
+    </management>
+    <physics>
+        <size>
+            <elem>
+                <name>X</name>
+                <length>16</length>
+            </elem>
+            <elem>
+                <name>Y</name>
+                <length>16</length>
+            </elem>
+            <elem>
+                <name>Z</name>
+                <length>16</length>
+            </elem>
+            <elem>
+                <name>T</name>
+                <length>48</length>
+            </elem>
+        </size>
+        <action>
+            <gluon>
+                <tpLuescherWeiszGluonAction>
+                    <glossary>http://www.lqcd.org/ildg/USQCD/MILC/tpLuescherWeiszGluonAction.html</glossary>
+                    <gluonField>
+                        <gaugeGroup>SU(3)</gaugeGroup>
+                        <representation>fundamental</representation>
+                        <boundaryCondition>
+                            <elem>periodic</elem>
+                            <elem>periodic</elem>
+                            <elem>periodic</elem>
+                            <elem>periodic</elem>
+                        </boundaryCondition>
+                    </gluonField>
+                    <beta>1.65725761803943</beta>
+                    <normalisation>cs_sum_to_one</normalisation>
+                    <c0>3.96558744305235</c0>
+                    <c1>-2.93067164062515</c1>
+                    <c2>0</c2>
+                    <c3>-2.93067164062515</c3>
+                    <u0>0.8604</u0>
+                </tpLuescherWeiszGluonAction>
+            </gluon>
+            <quark>
+            
+               <!-- The Old Way for ASQTAD -->
+               <asqTadQuarkAction>              
+               <glossary>http://www.lqcd.org/ildg/USQCD/MILC/asqTADQuarkAction.html</glossary>
+                    <quarkField>
+                        <normalisation>sqrt(2)</normalisation>
+                        <boundaryCondition>
+                            <elem>periodic</elem>
+                            <elem>periodic</elem>
+                            <elem>periodic</elem>
+                            <elem>antiperiodic</elem>
+                        </boundaryCondition>
+                    </quarkField>
+                    <numberOfFlavours>2</numberOfFlavours>
+                    <mass>0.0097</mass>
+                    <cNaik>-0.056284388861044</cNaik>
+                    <c1Link>0.625</c1Link>
+                    <c3Link>0.084426583291566</c3Link>
+                    <c5LinkChair>0.028511391865151</c5LinkChair>
+                    <c7LinkTwist>0.006418985066831</c7LinkTwist>
+                    <cLepage>-0.1140455674606</cLepage>
+                    <u0>0.8604</u0>
+                </asqTadQuarkAction>
+                
+                <!-- HISQ Using the OLD Style -->
+                <hisqQuarkAction>
+                    <glossary>http://www.lqcd.org/ildg/USQCD/MILC/hisqQuarkAction.html</glossary>
+                    <quarkField>
+                        <normalisation>sqrt(2)</normalisation>
+                        <boundaryCondition>
+                            <elem>periodic</elem>
+                            <elem>periodic</elem>
+                            <elem>periodic</elem>
+                            <elem>antiperiodic</elem>
+                        </boundaryCondition>
+                    </quarkField>
+                    <numberOfFlavours>1</numberOfFlavours>
+                    <mass>0.0484</mass>
+                    <LinkTreatment>
+                    
+                       <!-- The Fat 7 Treatment -->
+                        <fat7QuarkLinkTreatment>
+                           <glossary>http://www.lqcd.org/ildg/USQCD/MILC/fat7QuarkLinkTreatment.html</glossary>
+                           <c1Link>0.625</c1Link>
+                           <c3Link>0.084426583291566</c3Link>
+                           <c5LinkChair>0.028511391865151</c5LinkChair>
+                           <c7LinkTwist>0.006418985066831</c7LinkTwist>
+                           <u0>0.8604</u0>
+                        </fat7QuarkLinkTreatment>
+                        
+                        <!-- The group projection treatment -->
+                        <projectGroupLinkTreatment>
+                        <glossary>http://www.lqcd.org/ildg/USQCD/MILC/groupProjectionLinkTreatment.html</glossary>
+                         <group>U(3)</group>
+                        </projectGroupLinkTreatment>
+                        
+                        <!-- The AsqTad Link Treatment -->
+                        <asqTadQuarkLinkTreatment>
+                             <glossary>http://www.lqcd.org/ildg/USQCD/MILC/asqTADQuarkLinkTreatment.html</glossary>
+                             <epsilon>
+                                <method>polynomial, 8th order</method>
+                                <value>0.13</value>
+                             </epsilon>
+                             <cNaik>-0.04166666666</cNaik>
+                             <c1Link>0.625</c1Link>
+                             <c3Link>0.0625</c3Link>
+                             <c5LinkChair>0.015625</c5LinkChair>
+                             <c7LinkTwist>0.002604166666</c7LinkTwist>
+                             <cLepage>-0.125</cLepage>
+                             <u0>1</u0>
+                         </asqTadQuarkLinkTreatment>
+                    </LinkTreatment>
+               </hisqQuarkAction>
+               
+            </quark>
+        </action>
+    </physics>
+    <algorithm>
+        <name>R</name>
+        <glossary>http://www.lqcd.org/ildg/USQCD/MILC/RAlgorithmGlossary.html</glossary>
+        <reference>Phys. Rev. D35, 2531 (1987)</reference>
+        <exact>false</exact>
+    </algorithm>
+</markovChain>

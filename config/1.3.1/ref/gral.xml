@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<gaugeConfiguration xmlns="http://www.lqcd.org/ildg/QCDml/config1.3"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.lqcd.org/ildg/QCDml/config1.3 QCDml1.3.0Config.xsd">
+  <management>
+    <crcCheckSum>0</crcCheckSum>
+    <archiveHistory>
+      <elem>
+        <revisionAction>generate</revisionAction>
+        <participant>
+          <name>Boris Orth</name>
+          <institution>Wuppertal University</institution>
+        </participant>
+        <date>2002-12-02T22:21:58+01:00</date>
+      </elem>
+    </archiveHistory>
+  </management>
+  <implementation>
+    <machine>
+      <name>ALiCE</name>
+      <institution>Wuppertal University</institution>
+      <machineType>Cluster</machineType>
+    </machine>
+    <code>
+      <name>HMC-MPI</name>
+      <version>hmc_mpi-1.0</version>
+      <date>2004-01-22T16:09:50+01:00</date>
+    </code>
+  </implementation>
+  <algorithm>
+    <parameters>
+      <name>targetResidue</name>
+      <value>1e-08</value>
+    </parameters>
+  </algorithm>
+  <precision>double</precision>
+  <markovStep>
+    <markovChainURI>www.lqcd.org/ildg/gral/wilson_nf2/b5p6kp1575-14x32</markovChainURI>
+    <series>0</series>
+    <update>000000</update>
+    <avePlaquette>0.57143317</avePlaquette>
+    <dataLFN>lfn://ldg/gral/wilson_nf2/b5p6kp1575-14x32/config.00.000000.dat</dataLFN>
+  </markovStep>
+</gaugeConfiguration>

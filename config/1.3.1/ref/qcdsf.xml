@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<gaugeConfiguration xmlns="http://www.lqcd.org/ildg/QCDml/config1.3"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.lqcd.org/ildg/QCDml/config1.3 QCDml1.3.0Config.xsd">
+  <management>
+    <crcCheckSum>0</crcCheckSum>
+    <archiveHistory>
+      <elem>
+        <revisionAction>generate</revisionAction>
+        <participant>
+          <name>Hinnerk Stueben</name>
+          <institution>ZIB</institution>
+        </participant>
+        <date>2004-11-15T19:33:55+01:00</date>
+      </elem>
+    </archiveHistory>
+  </management>
+  <implementation>
+    <machine>
+      <name>sr8000</name>
+      <institution>LRZ Munich</institution>
+      <machineType>Hitachi SR8000-F1</machineType>
+    </machine>
+    <code>
+      <name>BQCD</name>
+      <version>3.0.1</version>
+      <date>2003-11-28T13:00:00+01:00</date>
+    </code>
+  </implementation>
+  <algorithm>
+    <parameters>
+      <name>targetResidue</name>
+      <value>1e-07</value>
+    </parameters>
+  </algorithm>
+  <precision>double</precision>
+  <markovStep>
+    <markovChainURI>www.lqcd.org/ildg/qcdsf/clover_nf2/b5p40kp13610-24x48</markovChainURI>
+    <series>563</series>
+    <update>1310</update>
+    <avePlaquette>0.5610635491</avePlaquette>
+    <dataLFN>lfn://ldg/qcdsf/clover_nf2/b5p40kp13610-24x48/bqcd.563.1.1.01310.tar</dataLFN>
+  </markovStep>
+</gaugeConfiguration>

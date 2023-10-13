@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<gaugeConfiguration xmlns="http://www.lqcd.org/ildg/QCDml/config1.3"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.lqcd.org/ildg/QCDml/config1.3 QCDml1.3.0Config.xsd">
+  <management>
+    <revisions>1</revisions>
+    <crcCheckSum>0</crcCheckSum>
+    <archiveHistory>
+      <elem>
+        <revision>0</revision>
+        <revisionAction>generate</revisionAction>
+        <participant>
+          <name>Hinnerk Testheutevonstefan Stueben</name>
+          <institution>ZIB</institution>
+        </participant>
+        <date>2004-11-15T19:33:48+01:00</date>
+      </elem>
+    </archiveHistory>
+  </management>
+  <implementation>
+    <machine>
+      <name>sr8000</name>
+      <institution>LRZ Munich</institution>
+      <machineType>Hitachi SR8000-F1</machineType>
+    </machine>
+    <code>
+      <name>BQCD</name>
+      <version>3.0.1</version>
+      <date>2003-11-28T13:00:00+01:00</date>
+    </code>
+  </implementation>
+  <algorithm>
+    <parameters>
+      <name>targetResidue</name>
+      <value>1e-07</value>
+    </parameters>
+  </algorithm>
+  <precision>double</precision>
+  <markovStep>
+    <markovChainURI>www.lqcd.org/ildg/qcdsf/Testing</markovChainURI>
+    <series>561</series>
+    <update>125</update>
+    <avePlaquette>0.561529211</avePlaquette>
+    <dataLFN>/grid/ildg/qcdsf/Testing/test_swy_23_11_05_no1</dataLFN>
+  </markovStep>
+</gaugeConfiguration>
