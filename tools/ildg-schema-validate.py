@@ -22,14 +22,21 @@ Test whether a set of XML documents comply with an XML schema
 
 import os
 import sys
+import argparse
 import xmlschema
 from avocado import Test
 from avocado.core.job import Job
 from avocado.core.suite import TestSuite
 
 
-config = {
+configValid = {
     "resolver.references":      [__file__ + ":Validate.test"],
+    "run.dict_variants":        [],
+    "run.max_parallel_tasks":   4,
+}
+
+configNonValid = {
+    "resolver.references":      [__file__ + ":ValidateFail.test"],
     "run.dict_variants":        [],
     "run.max_parallel_tasks":   4,
 }
@@ -40,27 +47,48 @@ class Validate(Test):
         xsd = self.params.get("xsd")
         xml = self.params.get("xml")
         inst = xmlschema.XMLSchema(xsd)
-        inst.validate(xml)
+        try:
+            inst.validate(xml)
+        except:
+            self.error("Document \"%s\" is not expected to be invalid" % (xml))
+
+
+class ValidateFail(Test):
+    def test(self):
+        xsd = self.params.get("xsd")
+        xml = self.params.get("xml")
+        inst = xmlschema.XMLSchema(xsd)
+        try:
+            inst.validate(xml)
+        except:
+            self.fail("Document \"%s\" is expected to be invalid" % (xml))
+        else:
+            self.error("Document \"%s\" is not expected to be valid" % (xml))
 
 
 if __name__ == "__main__":
-    if (len(sys.argv) < 2):
-        print("Usage: %s schema.xsd doc1.xml [doc2.xml ...]" % (sys.argv[0]))
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--schema", dest="xsd", type=str)
+    parser.add_argument("--valid", action="extend", nargs="+", type=str)
+    parser.add_argument("--nonvalid", action="extend", nargs="+", type=str)
+    args = parser.parse_args()
+
+    if not os.path.isfile(args.xsd):
+        print("XSD file \"%s\" does not exist or is not a file" % (args.xsd), file=sys.stderr)
         sys.exit()
 
-    xsd = sys.argv[1]
-    if not os.path.isfile(xsd):
-        print("XSD file \"%s\" does not exist or is not a file" % (xsd), file=sys.stderr)
-        sys.exit()
-
-    for i in range(2, len(sys.argv)):
-        xml = sys.argv[i]
+    for xml in args.valid:
         if not os.path.isfile(xml):
             print("XML file \"%s\" does not exist or is not a file" % (xml), file=sys.stderr)
             sys.exit()
-        config["run.dict_variants"].append({"xsd": xsd, "xml":  xml})
+        configValid["run.dict_variants"].append({"xsd": args.xsd, "xml":  xml})
 
-    suite = TestSuite.from_config(config)
+    for xml in args.nonvalid:
+        print(xml)
+        if not os.path.isfile(xml):
+            print("XML file \"%s\" does not exist or is not a file" % (xml), file=sys.stderr)
+            sys.exit()
+        configNonValid["run.dict_variants"].append({"xsd": args.xsd, "xml":  xml})
 
-    with Job(config, [suite]) as j:
-        sys.exit(j.run())
+    with Job(test_suites = [ TestSuite.from_config(configValid), TestSuite.from_config(configNonValid) ]) as job:
+        sys.exit(job.run())
