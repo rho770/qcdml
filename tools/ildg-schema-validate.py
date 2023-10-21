@@ -29,66 +29,58 @@ from avocado.core.job import Job
 from avocado.core.suite import TestSuite
 
 
-configValid = {
-    "resolver.references":      [__file__ + ":Validate.test"],
+config = {
+    "resolver.references":      [__file__ + ":Validator.test"],
     "run.dict_variants":        [],
-    "run.max_parallel_tasks":   4,
-}
-
-configNonValid = {
-    "resolver.references":      [__file__ + ":ValidateFail.test"],
-    "run.dict_variants":        [],
-    "run.max_parallel_tasks":   4,
+    "run.max_parallel_tasks":   1,
 }
 
 
-class Validate(Test):
+class Validator(Test):
     def test(self):
         xsd = self.params.get("xsd")
         xml = self.params.get("xml")
-        inst = xmlschema.XMLSchema(xsd)
-        try:
-            inst.validate(xml)
-        except:
-            self.error("Document \"%s\" is not expected to be invalid" % (xml))
+        isValid = self.params.get("isValid")
 
-
-class ValidateFail(Test):
-    def test(self):
-        xsd = self.params.get("xsd")
-        xml = self.params.get("xml")
         inst = xmlschema.XMLSchema(xsd)
-        try:
-            inst.validate(xml)
-        except:
-            self.fail("Document \"%s\" is expected to be invalid" % (xml))
+        
+        if (isValid > 0):
+            try:
+                inst.validate(xml)
+            except:
+                self.error("Document \"%s\" is not expected to be invalid" % (xml))
         else:
-            self.error("Document \"%s\" is not expected to be valid" % (xml))
+            try:
+                inst.validate(xml)
+            except:
+                self.fail("Document \"%s\" is expected to be invalid" % (xml))
+            else:
+                self.error("Document \"%s\" is not expected to be valid" % (xml))
+
+    def add(xsd, xmlLst, isValid):
+        if xmlLst is not None:
+            for xml in xmlLst:
+                if not os.path.isfile(xml):
+                    print("XML file \"%s\" does not exist or is not a file" % (xml), file=sys.stderr)
+                    sys.exit()
+                config["run.dict_variants"].append({"xsd": xsd, "xml":  xml, "isValid": isValid})
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--schema", dest="xsd", type=str)
-    parser.add_argument("--valid", action="extend", nargs="+", type=str)
-    parser.add_argument("--nonvalid", action="extend", nargs="+", type=str)
+    parser.add_argument('--schema', dest='xsd', type=str)
+    parser.add_argument('--valid', action='extend', nargs='*', type=str, required=False)
+    parser.add_argument('--nonvalid', action='extend', nargs='*', type=str, required=False)
     args = parser.parse_args()
 
     if not os.path.isfile(args.xsd):
         print("XSD file \"%s\" does not exist or is not a file" % (args.xsd), file=sys.stderr)
         sys.exit()
 
-    for xml in args.valid:
-        if not os.path.isfile(xml):
-            print("XML file \"%s\" does not exist or is not a file" % (xml), file=sys.stderr)
-            sys.exit()
-        configValid["run.dict_variants"].append({"xsd": args.xsd, "xml":  xml})
+    Validator.add(args.xsd, args.valid, 1)
+    Validator.add(args.xsd, args.nonvalid, 0)
 
-    for xml in args.nonvalid:
-        print(xml)
-        if not os.path.isfile(xml):
-            print("XML file \"%s\" does not exist or is not a file" % (xml), file=sys.stderr)
-            sys.exit()
-        configNonValid["run.dict_variants"].append({"xsd": args.xsd, "xml":  xml})
-
-    with Job(test_suites = [ TestSuite.from_config(configValid), TestSuite.from_config(configNonValid) ]) as job:
-        sys.exit(job.run())
+    if (len(config["run.dict_variants"]) > 0):
+        suite = TestSuite.from_config(config)
+        with Job(config, [suite]) as job:
+            sys.exit(job.run())
